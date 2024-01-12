@@ -30,7 +30,7 @@
 </template>
 
 <script>
-debugger;
+// debugger;
 import useAuthUser from "src/composables/UseAuthUser";
 import { defineComponent, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";

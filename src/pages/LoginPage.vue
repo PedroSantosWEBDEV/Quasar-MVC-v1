@@ -88,7 +88,7 @@ export default defineComponent({
         notifySuccess("Login successfully!");
         router.push({ name: "me" });
       } catch (error) {
-        debugger;
+        // debugger;
         notifyError(error.message);
         // alert(error.message);
       }
