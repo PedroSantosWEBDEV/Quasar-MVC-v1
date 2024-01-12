@@ -3,7 +3,12 @@
     <q-form class="row justify-center" @submit.prevent="handlerPasswordForget">
       <p class="col-12 text-h5 text-center">Forgot Password</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-        <q-input label="Email" v-model="email" />
+        <q-input label="Email"
+          type="email"
+          v-model="email"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Email is required']"
+        />
         <div class="full-width q-pt-md q-gutter-y-sm">
           <q-btn
             class="full-width"
@@ -30,6 +35,7 @@
 <script>
 import useAuthUser from "src/composables/UseAuthUser";
 import { defineComponent, ref } from "vue";
+import useNotify from "src/composables/UseNotify";
 
 export default defineComponent({
   name: "ForgotPasswordPage",
@@ -38,13 +44,15 @@ export default defineComponent({
 
     const email = ref("");
 
+    const { notifyError, notifySuccess } = useNotify();
+
     const handlerPasswordForget = async () => {
       try {
         // debugger
         await sendPasswordRestEmail(email.value);
-        alert(`Password reset email sent to: ${email.value}`);
+        notifySuccess(`Password reset email sent to: ${email.value}`);
       } catch (error) {
-        alert(error.message);
+        notifyError(error.message);
       }
     };
 
