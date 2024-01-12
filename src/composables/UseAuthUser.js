@@ -7,7 +7,7 @@ import useSupabase from 'boot/supabase'
 // e sempre se refira a um único usuário
 const user = ref(null)
 
-export default function useAuthUser () {
+export default function useAuthUser() {
   const { supabase } = useSupabase()
   /**
    * Login with email and password
@@ -75,14 +75,13 @@ export default function useAuthUser () {
    * (ie. support "Forgot Password?")
    */
   const sendPasswordRestEmail = async (email) => {
-    const { user, error } = await supabase.auth.api.resetPasswordForEmail(email)
+    const { user, error } = await supabase.auth.resetPasswordForEmail(email)
     if (error) throw error
     return user
   }
 
-  const resetPassword = async (accessToken, newPassword) => {
-    const { user, error } = await supabase.auth.api.updateUser(
-      accessToken,
+  const resetPassword = async (newPassword) => {
+    const { user, error } = await supabase.auth.updateUser(
       { password: newPassword }
     )
     if (error) throw error
